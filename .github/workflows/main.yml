@@ -16,6 +16,4 @@ jobs:
       with:
         ref: master
     - name: Push to Staging
-      run: |
-        git log --graph --pretty=format:"%h %ad %s"
-        git push origin master:deployment/staging
+      run: git push origin master:deployment/staging
