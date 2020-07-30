@@ -1,18 +1,20 @@
-# This is a basic workflow to help you get started with Actions
 name: CI
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+
 on:
   pull_request:
     types: closed
     branches: [ master ]
-# masterブランチMerge後に、deployment/stagingにPushする
+
 jobs:
   push:
+    # masterブランチMerge後に、deployment/stagingにPushする
     if: github.event.pull_request.merged
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
 
     - name: Push to Staging
-      run: git push origin master:deployment/staging
+      uses: ad-m/github-push-action
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: deployment/staging
