@@ -15,17 +15,16 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    env:
-      TZ: Asia/Tokyo
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
     - name: Create Tag
-      run: |
-          echo "::set-env name=release_tag::$(date '+%Y%m%d-%H%M')"
+      env:
+        TZ: Asia/Tokyo
+      run: echo "::set-env name=release_tag::$(date '+%Y%m%d-%H%M')"
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
