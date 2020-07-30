@@ -22,7 +22,7 @@ jobs:
 
     - name: Create Tag
       run: |
-          echo "::set-env name=release_tag::v$(date '+%Y%m%d_%H%M%S')"
+          echo "::set-env name=release_tag::$(TZ=-9 date '+%Y%m%d-%H%M')"
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -30,6 +30,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ env.release_tag }}
-        release_name: Release ${{ env.release_tag }}
+        release_name: release-${{ env.release_tag }}
         draft: false
         prerelease: false
